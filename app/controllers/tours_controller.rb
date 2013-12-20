@@ -4,7 +4,12 @@ class ToursController < ApplicationController
   # GET /tours
   # GET /tours.json
   def index
-    @tours = Tour.all
+    @tours = if params[:category_id]
+               Category.find(params[:category_id]).tours
+             else
+               Tour.all
+             end
+    @categories = Category.all
   end
 
   # GET /tours/1
